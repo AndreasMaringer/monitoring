@@ -57,7 +57,7 @@
                         </BarChart>
                      </children>
                   </FlowPane>
-                  <MenuBar>
+                  <MenuBar prefHeight="22.0" prefWidth="1137.0">
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
@@ -94,7 +94,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <LineChart fx:id="lineChart1" createSymbols="false" legendSide="LEFT" prefHeight="388.0" prefWidth="1042.0" stylesheets="@css/style.css" title="KursEntwicklung" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
+                              <LineChart fx:id="lineChart1" createSymbols="false" legendSide="RIGHT" prefHeight="388.0" prefWidth="1042.0" stylesheets="@css/style.css" title="KursEntwicklung" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
                                 <xAxis>
                                   <CategoryAxis animated="false" label="Time " prefHeight="66.0" prefWidth="902.0" side="RIGHT" fx:id="xAxis" />
                                 </xAxis>

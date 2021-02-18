@@ -1,10 +1,12 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -179,7 +181,7 @@ public class LineChartController {
      private void initialize() {
         System.out.println("initialize aufgerufen!");
         lineChart1.getData().clear();
-
+        
         System.out.println("LineChart1.getData().clear() ausgeführt!!!");
         series0.setName("1 Close");
         series1.setName("2 Open");
@@ -188,23 +190,32 @@ public class LineChartController {
         /*series4.setName("5 adjClose");
         series5.setName("6 Volume");*/
         CSVReaderJava csv1 = new CSVReaderJava();
-        /*FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select CSV-File");
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        stage.setScene(new Scene(root,1200,800));
-        File file =fileChooser.showOpenDialog(stage);*/
+
+        lineChart1.setCursor(Cursor.CROSSHAIR); // Cursor Fadenkreuz!
         if(selectedFile != null){
         ArrayList<Stock> lineArray = csv1.readStockFromCSV(selectedFile.getPath()/*"c:/temp/BTC_USD_2013-10-01_2021-02-12.csv"*/); //c:/temp/stock03.csv
+            int counter = 0;
          if(dateStart != null && dateEnd != null) {
-             for (Stock stock : lineArray) {
+             for (Stock stock : lineArray) { // lineArray ist ArrayList<Stock>
                  if (stock.getDate().after(dateStart) && stock.getDate().before(dateEnd)) {
                      String x = stock.getDate().toString();// von martin ???
+                     System.out.print("Zeile 204 Stock.getDate().toString(): "+x);
+                     try {
 
-                     series0.getData().add(new XYChart.Data(stock.getDate().toString(), stock.getOpenValue()));
-                     series1.getData().add(new XYChart.Data(stock.getDate().toString(), stock.getCloseValue()));
-                     series2.getData().add(new XYChart.Data(stock.getDate().toString(), stock.getHighValue()));
-                     series3.getData().add(new XYChart.Data(stock.getDate().toString(), stock.getLowValue()));
+                         XYChart.Data data = new XYChart.Data(stock.getFormatDate(), stock.getOpenValue());
+                         data.setNode(new HoveredThresholdNode(stock.getOpenValue()));//((i == 0) ? 0 : y[i-1], y[i]));
+                         series0.getData().add(data);
+
+                         XYChart.Data data1 = new XYChart.Data(stock.getFormatDate(), stock.getCloseValue());
+                         data1.setNode(new HoveredThresholdNode(stock.getCloseValue()));
+                         series1.getData().add(data1);
+
+                         series2.getData().add(new XYChart.Data(stock.getFormatDate(), stock.getHighValue()));
+                         series3.getData().add(new XYChart.Data(stock.getFormatDate(), stock.getLowValue()));
+                         counter++;
+                     } catch (Exception e){
+                         System.out.println("Daten nicht gelesen!");
+                     }
 
                  }
              }

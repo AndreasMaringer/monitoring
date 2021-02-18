@@ -1,5 +1,10 @@
 package sample;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Date;
+import java.util.Locale;
 
 public class Stock {
     private String name;
@@ -37,9 +42,19 @@ public class Stock {
 
         return date;
     }
+    public String getFormatDate(){
+        System.out.println("date before formatting: "+ date);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = simpleDateFormat.format(date);
+        System.out.println("Formatted Date : "+ formattedDate);
+
+        return formattedDate;
+
+    }
     public void setDate(Date date){
         this.date = date;
     }
+
     public double getOpenValue(){
         return openValue;
     }

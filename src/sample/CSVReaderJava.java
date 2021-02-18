@@ -27,7 +27,7 @@ public class CSVReaderJava {
 
             while (line != null) {
 
-                if (counter == 0) {
+                if (counter == 0) { // 1.zeile mit beschriftung
                     counter++;
                     line = br.readLine();
                     continue;
