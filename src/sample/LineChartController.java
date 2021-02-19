@@ -201,18 +201,21 @@ public class LineChartController {
                      String x = stock.getDate().toString();// von martin ???
                      System.out.print("Zeile 204 Stock.getDate().toString(): "+x);
                      try {
-
+                         int indexCloseValue = lineArray.indexOf(stock);
+                         Stock prefNode = lineArray.get(indexCloseValue - 1);// Value of the line before
+                         System.out.println("indexCloseVAlue: "+ indexCloseValue);
                          XYChart.Data data = new XYChart.Data(stock.getFormatDate(), stock.getOpenValue());
-                         data.setNode(new HoveredThresholdNode(stock.getOpenValue()));//((i == 0) ? 0 : y[i-1], y[i]));
+                         data.setNode(new HoveredThresholdNode(prefNode.getOpenValue(),stock.getOpenValue()));//((i == 0) ? 0 : y[i-1], y[i]));
                          series0.getData().add(data);
 
                          XYChart.Data data1 = new XYChart.Data(stock.getFormatDate(), stock.getCloseValue());
-                         data1.setNode(new HoveredThresholdNode(stock.getCloseValue()));
+                         data1.setNode(new HoveredThresholdNode(prefNode.getCloseValue(),stock.getCloseValue()));
                          series1.getData().add(data1);
 
-                         series2.getData().add(new XYChart.Data(stock.getFormatDate(), stock.getHighValue()));
-                         series3.getData().add(new XYChart.Data(stock.getFormatDate(), stock.getLowValue()));
+                        /* series2.getData().add(new XYChart.Data(stock.getFormatDate(), stock.getHighValue()));
+                         series3.getData().add(new XYChart.Data(stock.getFormatDate(), stock.getLowValue()));*/
                          counter++;
+                         System.out.println("counter: "+counter);
                      } catch (Exception e){
                          System.out.println("Daten nicht gelesen!");
                      }
